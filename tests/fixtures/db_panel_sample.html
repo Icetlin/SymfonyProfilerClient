@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head><title>Profiler — DB</title></head>
+<body>
+<h1>DB Queries</h1>
+<table class="queries-table alt">
+  <tbody>
+    <tr id="queryNo-default-1">
+      <td>1</td>
+      <td>1.2 ms</td>
+      <td>
+        <pre class="highlight highlight-sql">SELECT * FROM users WHERE id = 42</pre>
+        <div>Parameters : [42]</div>
+        <div class="hidden">
+<table>
+  <thead><tr><th>#</th><th>File/Call</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>
+        <a href="file:///var/www/html/vendor/doctrine/dbal/src/Statement.php#L36">Doctrine\DBAL\Statement-><span class="status-warning">execute</span></a>
+        (line 36)
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>
+        <a href="file:///var/www/html/src/Service/UserService.php#L54">App\Service\UserService-><span>getUser</span></a>
+        (line 54)
+      </td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        <a href="?_profiler=token&panel=db&page=explain&query=1">Explain</a>
+      </td>
+    </tr>
+    <tr id="queryNo-default-2">
+      <td>2</td>
+      <td>0.4 ms</td>
+      <td>
+        <pre class="highlight highlight-sql">SELECT * FROM users WHERE id = 43</pre>
+        <div>Parameters : [43]</div>
+        <div class="hidden">
+<table>
+  <thead><tr><th>#</th><th>File/Call</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>
+        <a href="file:///var/www/html/vendor/doctrine/dbal/src/Statement.php#L36">Doctrine\DBAL\Statement->execute</a>
+        (line 36)
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>
+        <a href="file:///var/www/html/src/Service/UserService.php#L54">App\Service\UserService->getUser</a>
+        (line 54)
+      </td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </td>
+    </tr>
+    <tr id="queryNo-default-3">
+      <td>3</td>
+      <td>340 µs</td>
+      <td>
+        <pre class="highlight highlight-sql">UPDATE sessions SET expires_at = N WHERE id = N</pre>
+        <div>Parameters : [2026-06-15 12:00:00, sess-abc]</div>
+        <div class="hidden">
+<table>
+  <thead><tr><th>#</th><th>File/Call</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>
+        <a href="file:///var/www/html/vendor/doctrine/dbal/src/Statement.php#L36">Doctrine\DBAL\Statement->execute</a>
+        (line 36)
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>
+        <a href="file:///var/www/html/src/Service/SessionService.php#L20">App\Service\SessionService->touch</a>
+        (line 20)
+      </td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

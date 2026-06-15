@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "symfony-profiler-client"
+version = "1.0.0"
+description = "A small, dependency-light Python CLI for talking to the Symfony WebProfilerBundle."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Icetlin", email = "ilyaled@gmail.com" },
+]
+keywords = [
+    "symfony",
+    "profiler",
+    "webprofiler",
+    "doctrine",
+    "n+1",
+    "debug",
+    "cli",
+    "performance",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "requests>=2.28",
+    "beautifulsoup4>=4.11",
+    "lxml>=4.9",
+]
+
+[project.optional-dependencies]
+toml = [
+    "tomli>=1.1; python_version < '3.11'",
+]
+dev = [
+    "pytest>=7",
+    "pytest-cov>=4",
+    "ruff>=0.1",
+]
+
+[project.scripts]
+profiler = "symfony_profiler_client.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Icetlin/SymfonyProfilerClient"
+Issues = "https://github.com/Icetlin/SymfonyProfilerClient/issues"
+Changelog = "https://github.com/Icetlin/SymfonyProfilerClient/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+symfony_profiler_client = ["py.typed"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+ignore = ["E501"]  # line length is handled by formatter

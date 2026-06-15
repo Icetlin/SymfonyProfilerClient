@@ -1,0 +1,11 @@
+# Auto-detect text files, ensure LF line endings
+* text=auto eol=lf
+
+# Force LF for shell scripts regardless of platform
+*.sh text eol=lf
+
+# Python sources — diff with --ignore-all-space
+*.py diff=python
+
+# Markdown — don't touch
+*.md text eol=lf
