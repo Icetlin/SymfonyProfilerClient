@@ -1,0 +1,71 @@
+# Example configuration for symfony-profiler-client.
+#
+# Copy this file to one of the locations the tool reads from:
+#
+#   Linux/macOS:  ~/.config/symfony-profiler-client/config.toml
+#   Custom path:  $XDG_CONFIG_HOME/symfony-profiler-client/config.toml
+#   Override:     --config /path/to/file.toml
+#                 PROFILER_CONFIG=/path/to/file.toml
+#
+# Resolution order (highest priority first):
+#   1. CLI flags
+#   2. Environment variables (PROFILER_*)
+#   3. This file
+#   4. Auto-detection (host_prefix only)
+#   5. Built-in defaults
+
+# All keys are optional. A [profiler] table is preferred for clarity,
+# but root-level keys work too.
+
+[profiler]
+
+# Base URL of the Symfony app exposing the WebProfilerBundle.
+# Default: http://127.0.0.1:8000
+base = "https://my-app.test"
+
+# Path to a Netscape cookie jar exported by your browser
+# (e.g. via the "cookies.txt" extension).
+cookies_file = "/home/me/.cookies/my-app.txt"
+
+# Bearer token for Authorization: Bearer ...
+bearer = "eyJhbGciOi..."
+
+# Path translation: in-container prefix -> local checkout.
+# If src_prefix is omitted, the tool tries /var/www/html, /app,
+# /srv/app, /var/www in that order.
+src_prefix = "/var/www/html"
+host_prefix = "/home/me/projects/myapp"
+
+# Skip TLS certificate verification (for self-signed dev certs).
+insecure = true
+
+# Request timeout in seconds. Default: 600.
+timeout = 30
+
+# Extra headers to send on every request. Repeat the key for more.
+extra_headers = [
+    "X-Debug: 1",
+    "X-Forwarded-User: dev",
+]
+
+# Override the User-Agent product token. Default: "symfony-profiler-client".
+user_agent = "my-team-profiler"
+
+# ---------------------------------------------------------------------------
+# Analyzer behaviour — how the "first app frame" is picked
+# ---------------------------------------------------------------------------
+
+[analyzer]
+
+# Class-name prefixes that the analyzer will skip when looking for the
+# "first app frame" of a query backtrace. Add your own vendor packages
+# or in-house frameworks here. Class names use double-backslash escaping
+# for the namespace separator, as in PHP.
+skip_prefixes = [
+    "Doctrine\\",
+    "Symfony\\",
+    "PDO",
+    "Propel",
+    "Sentry\\",
+    "MyCompany\\Monitoring\\",
+]

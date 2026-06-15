@@ -109,8 +109,8 @@ def detect_host_prefix(start: Path | None = None) -> str | None:
             return str(candidate)
         if (candidate / ".git").is_dir():
             toplevel = _git_toplevel(candidate)
-            if toplevel and _looks_like_symfony_root(toplevel):
-                return str(toplevel)
+            if toplevel and _looks_like_symfony_root(Path(toplevel)):
+                return toplevel
     return None
 
 
@@ -253,9 +253,23 @@ class ProfilerConfig:
                 cfg_path = default
 
         if cfg_path and cfg_path.is_file():
-            file_cfg = _load_toml(cfg_path)
-            # also support a [profiler] table for cleanliness, fall back to root
-            file_cfg = file_cfg.get("profiler", file_cfg)
+            raw = _load_toml(cfg_path)
+            # Prefer a [profiler] table; fall back to the file's root keys
+            # if no such table exists. Then merge in well-known sibling
+            # sections (e.g. [analyzer]) by flattening their keys with
+            # the section name as a prefix.
+            if "profiler" in raw:
+                file_cfg = dict(raw["profiler"])
+            else:
+                file_cfg = {k: v for k, v in raw.items() if not isinstance(v, dict)}
+            # Flatten known sibling sections.
+            for section in ("analyzer",):
+                if section in raw and isinstance(raw[section], dict):
+                    for k, v in raw[section].items():
+                        # store under the unprefixed key; the dataclass
+                        # field happens to be `skip_prefixes` for the
+                        # [analyzer] section today
+                        file_cfg[k] = v
 
         # ---- layer 2: env --------------------------------------------------
         env_cfg: dict[str, Any] = {

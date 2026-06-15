@@ -104,6 +104,18 @@ Configuration is resolved from four layers, in this priority order:
 
 ### Config file (TOML)
 
+A complete, annotated example is shipped at
+[`config.example.toml`](./config.example.toml) in the repo root. Copy it
+to one of the locations below and edit:
+
+```bash
+mkdir -p ~/.config/symfony-profiler-client
+cp config.example.toml ~/.config/symfony-profiler-client/config.toml
+$EDITOR ~/.config/symfony-profiler-client/config.toml
+```
+
+Minimal example:
+
 ```toml
 # ~/.config/symfony-profiler-client/config.toml
 
